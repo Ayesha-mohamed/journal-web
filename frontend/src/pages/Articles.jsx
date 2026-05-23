@@ -68,7 +68,7 @@ function Articles() {
     <div className="min-h-screen bg-gray-100">
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 px-8 md:px-20">
+      <section className="bg-[url('https://i.pinimg.com/1200x/66/96/57/669657b77fd005d9ae48bdba113365f4.jpg')] from-blue-600 to-indigo-700 text-white py-20 px-8 md:px-20">
         <div className="max-w-3xl">
           <h1 className="text-5xl font-bold mb-6">
             Latest Articles
