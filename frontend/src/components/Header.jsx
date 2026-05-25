@@ -21,9 +21,9 @@ function Header() {
           </Link>
         </div>
 
-        <button className="bg-slate-600 text-white px-5 py-2 rounded-xl hover:bg-slate-700 transition">
+        <Link to='/admin/login' className="bg-slate-900 text-white px-5 py-2 rounded-xl hover:bg-slate-800 transition">
           Login
-        </button>
+        </Link>
       </nav>
     </div>
   )

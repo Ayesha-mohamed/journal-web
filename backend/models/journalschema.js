@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const journalSchema = new mongoose.Schema({
+   id:{
+    type: Number
+   },
     title:{
         type:String,
         required:true

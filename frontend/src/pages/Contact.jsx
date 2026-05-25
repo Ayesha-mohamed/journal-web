@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 function Contact() {
+
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [message, setMessage ] = useState("")
+
+  const handlepost = (e) =>{
+    e.preventDefault()
+    try {
+      axios.post("http://localhost:9000/create/contact",{
+        name: name,
+        email: email,
+        message: message
+      }).then(()=>{
+        alert("sends message")
+      })
+      
+    } catch (error) {
+      console.log("errorkani waa dhanka messageska apiga", error)
+      
+    }
+  }
+
   return (
     <>
   <Header />
@@ -93,7 +116,7 @@ function Contact() {
               Send Message
             </h2>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handlepost}>
 
               <div>
                 <label className="block mb-2 font-medium">
@@ -101,6 +124,8 @@ function Contact() {
                 </label>
 
                 <input
+                value={name}
+                onChange={(e)=> setName(e.target.value)}
                   type="text"
                   placeholder="Enter your name"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
@@ -113,6 +138,8 @@ function Contact() {
                 </label>
 
                 <input
+                value={email}
+                onChange={(e)=> setEmail(e.target.value)}
                   type="email"
                   placeholder="Enter your email"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500"
@@ -125,6 +152,8 @@ function Contact() {
                 </label>
 
                 <textarea
+                value={message}
+                onChange={(m)=> setMessage(m.target.value)}
                   rows="5"
                   placeholder="Write your message..."
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-blue-500"

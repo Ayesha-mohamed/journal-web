@@ -3,7 +3,7 @@ import ContactModel from"../models/ContactModel.js"
 // add contact
 const createContact = async (req,res) =>{
     try{
-        const {name,email,message} = req.body;
+        const { name,email,message } = req.body;
         const newContact = ContactModel({
             name:name,
             email:email,
@@ -13,7 +13,7 @@ const createContact = async (req,res) =>{
         res.send(newContact)
 
     } catch (error){
-        res.status(500).json({message: message.error})
+        res.status(500).json({message: error.message})
     }
 }
 

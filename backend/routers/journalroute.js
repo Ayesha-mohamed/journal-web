@@ -8,7 +8,7 @@ const router = express.Router()
 router.post("/api/journal",uploadimages.single("image"), createJournal)
 router.get("/api/get", getJournals)
 router.get("/single/journal/:id", getSingleJournal)
-router.put("/update/journey/:id", uploadimages.single("image"), updateJournal)
+router.put("/update/journal/:id", uploadimages.single("image"), updateJournal)
 router.get("/search/journal/:key", searchJournal)
 router.delete("/delete/journal/:id", deleteJournal)
 
