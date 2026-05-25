@@ -1,10 +1,31 @@
-import React from "react";
-import { Search, BookOpen, TrendingUp, Clock } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Search, BookOpen, TrendingUp, Clock, ArrowRight } from "lucide-react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Home() {
+
+  const [latest, setLatest] = useState([])
+
+    const handleData = () =>{
+    try {
+     axios.get("http://localhost:9000/latest/api").then((res)=>{
+        setLatest(res.data)
+      })
+      
+    } catch (error) {
+      console.log("errorka wuxuu ka jiraa home page ka ee api latest",error)
+    }
+  }
+  
+  console.log(latest)
+
+  useEffect(()=>{
+    handleData()
+  },[])
+
   return (
     <div className="min-h-screen bg-gray-100">
       
@@ -97,6 +118,7 @@ function Home() {
       </section>
 
       {/* Latest Articles */}
+
       <section className="px-8 md:px-20 py-16 bg-white">
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-3xl font-bold"> Latest Articles </h2>
@@ -106,33 +128,45 @@ function Home() {
 
         <div className="grid md:grid-cols-3 gap-8">
 
-          {[1, 2, 3].map((item) => (
-            <div
-              key={item}
+          {
+            latest.map((item, k)=>{
+              return   <div
+              key={k}
               className="bg-gray-100 rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition"
             >
-              <img src={`https://picsum.photos/500/300?random=${item}`} alt="article"  className="w-full h-52 object-cover"/>
+              <img src={`http://localhost:9000/allimage/${item.image}`} alt="article"  className="w-full h-52 object-cover"/>
 
               <div className="p-6">
                 <p className="text-sm text-blue-600 font-medium mb-2">
-                  Technology
+                 {item.type}
                 </p>
 
                 <h3 className="text-2xl font-bold mb-3">
-                  Modern Web Development Trends
+                 {item.title}
                 </h3>
 
-                <p className="text-gray-600 mb-4">
+                {/* <p className="text-gray-600 mb-4">
                   Explore the latest technologies shaping the future of web
                   applications and digital experiences.
-                </p>
+                </p> */}
 
-                <button className="text-blue-600 font-semibold hover:underline">
+                {/* <button className="text-blue-600 font-semibold hover:underline">
                   Read More →
+                </button> */}
+                 <Link to={`/readmore/${item._id}`}>  <button className="text-blue-600 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
+                  Read More
+                  <ArrowRight size={18} />
+
                 </button>
+                </Link> 
               </div>
             </div>
-          ))}
+            })
+          }
+
+          {/* {[1, 2, 3].map((item) => (
+          
+          ))} */}
 
         </div>
       </section>

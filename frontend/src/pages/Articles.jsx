@@ -176,7 +176,7 @@ function Articles() {
       </section>
 
       {/* Newsletter */}
-      <section className="px-8 md:px-20 py-16 bg-white">
+      {/* <section className="px-8 md:px-20 py-16 bg-white">
         <div className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl p-10 text-center text-white">
           
           <h2 className="text-4xl font-bold mb-4">
@@ -200,7 +200,7 @@ function Articles() {
           </div>
 
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />

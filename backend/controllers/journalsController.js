@@ -100,5 +100,17 @@ const searchJournal = async (req, res) =>{
     }
 }
 
+//latest 3 
+const latestJournal = async(req, res) =>{
+    try {
+        const latest = await journalmodel.find().sort({ createdAt:-1 }).limit(3)
+        res.json(latest)
+        
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
 
-export {createJournal, getJournals, updateJournal,getSingleJournal , searchJournal, deleteJournal}
+
+
+export {createJournal, getJournals, updateJournal,getSingleJournal , searchJournal, deleteJournal, latestJournal}
