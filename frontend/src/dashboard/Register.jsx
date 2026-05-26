@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { UserPlus, Mail, Lock } from "lucide-react";
+import Dashboard from "./Dashbord";
 
 function AdminRegister() {
   const [form, setForm] = useState({
@@ -25,7 +26,9 @@ function AdminRegister() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f7fb] p-4">
+       <div className="flex ">
+    <Dashboard />
+    <div className="min-h-screen w-1/2 flex items-center justify-center bg-[#f5f7fb] p-4">
 
       <div className="bg-white w-full max-w-md rounded-3xl shadow-lg p-8">
 
@@ -110,6 +113,7 @@ function AdminRegister() {
         </form>
 
       </div>
+    </div>
     </div>
   );
 }

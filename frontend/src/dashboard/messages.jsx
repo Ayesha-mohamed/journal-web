@@ -1,4 +1,5 @@
 import { Mail, User, Trash2 } from "lucide-react";
+import Dashboard from "./Dashbord";
 
 const messages = [
   {
@@ -23,6 +24,9 @@ const messages = [
 
 function Messages() {
   return (
+    <div className="flex ">
+    <Dashboard />
+   
     <div className="bg-[#f5f7fb] min-h-screen p-6">
 
       {/* header */}
@@ -81,6 +85,7 @@ function Messages() {
 
       </div>
     </div>
+     </div>
   );
 }
 

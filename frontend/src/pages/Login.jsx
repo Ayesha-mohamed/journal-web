@@ -25,8 +25,8 @@ function AdminLogin() {
       localStorage.setItem("adminToken", res.data.token);
 
       alert("Login successful");
-    //   navigate("/admin/dashboard");
-      navigate("/");
+      navigate("/admin/dashboard");
+      // navigate("/admin/dashboard");
 
     } catch (err) {
       setError("Invalid email or password");

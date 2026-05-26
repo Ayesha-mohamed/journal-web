@@ -5,6 +5,7 @@ import {
   Pencil,
   Trash2,
 } from "lucide-react";
+import Dashboard from "./Dashbord";
 
 const articles = [
   {
@@ -41,6 +42,8 @@ const articles = [
 
 function Adminarticle() {
   return (
+       <div className="flex ">
+    <Dashboard />
     <div className="bg-[#f5f7fb] min-h-screen p-6">
 
       {/* top */}
@@ -98,13 +101,13 @@ function Adminarticle() {
                   {item.category}
                 </span>
 
-                <span className={`text-xs px-3 py-1 rounded-full ${
+                {/* <span className={`text-xs px-3 py-1 rounded-full ${
                   item.status === "Published"
                     ? "bg-green-100 text-green-700"
                     : "bg-orange-100 text-orange-600"
                 }`}>
                   {item.status}
-                </span>
+                </span> */}
               </div>
 
               {/* title */}
@@ -114,15 +117,13 @@ function Adminarticle() {
 
               {/* meta */}
               <p className="text-sm text-gray-500 mb-4">
-                {item.date} • {item.views} views
+                {item.date} • 
               </p>
 
               {/* actions */}
               <div className="flex items-center justify-between">
 
-                <button className="bg-blue-100 text-blue-600 p-2 rounded-xl hover:scale-105 transition">
-                  <Eye size={18} />
-                </button>
+               
 
                 <button className="bg-green-100 text-green-600 p-2 rounded-xl hover:scale-105 transition">
                   <Pencil size={18} />
@@ -139,6 +140,7 @@ function Adminarticle() {
         ))}
 
       </div>
+    </div>
     </div>
   );
 }
