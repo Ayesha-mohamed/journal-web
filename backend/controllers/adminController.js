@@ -1,6 +1,7 @@
 import AdminModel from"../models/adminModel.js";
 import bcrypt from"bcryptjs";
 import jwt from"jsonwebtoken";
+import adminModel from "../models/adminModel.js";
 
 const createAdmin = async (req, res) => {
   try {
@@ -72,5 +73,18 @@ const adminlogin = async (req, res) => {
   }
 };
 
-export default { createAdmin, adminlogin };
+//get total admins
+const totalAdmins = async(req, res) =>{
+  try {
+    const adminsTotal = await adminModel.countDocuments()
+    res.status(200).json({
+      adminsTotal
+    })
+
+  } catch (error) {
+    res.status(400).json({message: error.message})
+  } 
+}
+
+export default { createAdmin, adminlogin, totalAdmins };
 

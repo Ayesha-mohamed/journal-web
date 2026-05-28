@@ -1,3 +1,4 @@
+import journalschema from "../models/journalschema.js";
 import journalmodel  from "../models/journalschema.js";
 
 //create destination
@@ -42,31 +43,62 @@ const getSingleJournal = async (req, res) =>{
 }
 
 //update function
-const updateJournal = async (req, res) =>{
-    try {
-        const { title, description, type, image } = req.body
-        const updateData = await journalmodel.updateOne(
-            {_id: req.params.id},
-            {$set: {
-                title: title,
-                description: description,
-                type: type,
-                image: req.file ? req.file.filename : undefined
-            }}
+// const updateJournal = async (req, res) =>{
+//     try {
+//         const { title, description, type, image } = req.body
+//         const updateData = await journalmodel.updateOne(
+//             {_id: req.params.id},
+//             {$set: {
+//                 title: title,
+//                 description: description,
+//                 type: type,
+//                 image: req.file ? req.file.filename : undefined
+//             }}
             
-        )
+//         )
 
-        if(updateData){
-            res.status(200).json(updateDate)
-        }
+//         if(updateData){
+//             res.status(200).json(updateDate)
+//         }
         
-    } catch (error) {
-        res.status(500).json({message: error})
+//     } catch (error) {
+//         res.status(500).json({message: error})
+//     }
+
+
+
+// }
+
+const updateJournal = async (req, res) => {
+
+  try {
+
+    const updateData = {
+      title: req.body.title,
+      type: req.body.type,
+      description: req.body.description,
+    };
+
+    // haddii image cusub jiro
+    if (req.file) {
+      updateData.image = req.file.filename;
     }
 
+    const updated = await journalmodel.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { returnDocument: "after" }
+    );
 
+    res.json(updated);
 
-}
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 //delete
 const deleteJournal = async (req, res) =>{
@@ -111,6 +143,19 @@ const latestJournal = async(req, res) =>{
     }
 }
 
+//total count
+const getTotalJournal = async (req, res) =>{
+    try {
+        const total = await journalmodel.countDocuments()
+        res.status(200).json({
+            total
+        })
+        
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
 
 
-export {createJournal, getJournals, updateJournal,getSingleJournal , searchJournal, deleteJournal, latestJournal}
+export {createJournal, getJournals, updateJournal,getSingleJournal , searchJournal, deleteJournal, latestJournal, getTotalJournal
+}

@@ -37,5 +37,19 @@ const deleteMessage = async (req, res) =>{
     }
 }
 
+//get total messages
+const totalMessages = async(req, res) =>{
+    try {
+        const meassage = await ContactModel.countDocuments()
+        res.status(200).json({
+            meassage
+        })
 
-export default  {createContact,readContact, deleteMessage}
+        
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
+
+
+export default  {createContact,readContact, deleteMessage, totalMessages}

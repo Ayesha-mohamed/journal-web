@@ -1,5 +1,5 @@
 import express from "express";
-import { createJournal, deleteJournal, getJournals, getSingleJournal, latestJournal, searchJournal, updateJournal, } from "../controllers/journalsController.js";
+import { createJournal, deleteJournal, getJournals, getSingleJournal, getTotalJournal, latestJournal, searchJournal, updateJournal, } from "../controllers/journalsController.js";
 import uploadimages from '../middleware/uploadImge.js'
 
 
@@ -9,6 +9,7 @@ router.post("/api/journal",uploadimages.single("image"), createJournal)
 router.get("/api/get", getJournals)
 router.get("/single/journal/:id", getSingleJournal)
 router.get("/latest/api", latestJournal)
+router.get("/total/journal", getTotalJournal)
 router.put("/update/journal/:id", uploadimages.single("image"), updateJournal)
 router.get("/search/journal/:key", searchJournal)
 router.delete("/delete/journal/:id", deleteJournal)

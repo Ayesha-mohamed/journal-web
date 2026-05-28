@@ -12,6 +12,7 @@ import Messages from "./dashboard/messages"
 import AdminRegister from "./dashboard/Register"
 import AddArticle from "./dashboard/Addarticle"
 import Report from "./dashboard/report"
+import UpdateArticle from "./dashboard/updateArticle"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
   <Route path="/admin/register" element={<AdminRegister />} />
   <Route path="/add/article" element={<AddArticle />} />
   <Route path="/admin/dashboard" element={<Report />} />
+  <Route path="/update/article/:id" element={<UpdateArticle />} />
   
 
 

@@ -65,29 +65,10 @@ function Articles() {
   // ];
 
 
-  const [news, setNews] = useState([])
-  const [title, setTitle] = useState("")
-  const [desc, setDesc] = useState("")
-  const [type, setType] = useState("")
-  const [image, setImage] = useState(null)
-
-
-  const handleData = () =>{
-    try {
-     axios.get("http://localhost:9000/api/get").then((res)=>{
-        setNews(res.data)
-      })
-      
-    } catch (error) {
-      console.log("errorka wuxuu ka jiraa articles page ka ee api readka",error)
-    }
-  }
   
-  console.log(news)
 
-  useEffect(()=>{
-    handleData()
-  },[])
+
+
 
   return (
     <>

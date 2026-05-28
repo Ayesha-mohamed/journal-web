@@ -1,162 +1,200 @@
-// pages/admin/Dashboard.jsx
-
 import {
   FileText,
   Users,
   MessageSquare,
-  Eye,
-  Trash2,
-  Pencil,
-  Link,
 } from "lucide-react";
+
 import Dashboard from "./Dashbord";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Report = () => {
+
+  const [latest, setLatest] = useState([]);
+  const [article, setArticle] = useState(0);
+  const [message, setMessage] = useState(0);
+  const [admins, setAdmins] = useState(0);
+
+  // latest articles
+  const handleData = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:9000/latest/api"
+      );
+
+      setLatest(res.data);
+
+    } catch (error) {
+      console.log("Latest API Error", error);
+    }
+  };
+
+  // total articles
+  const totalArticle = async () => {
+    try {
+
+      const res = await axios.get(
+        "http://localhost:9000/total/journal"
+      );
+
+      setArticle(res.data.total);
+
+    } catch (error) {
+      console.log("Article API Error", error);
+    }
+  };
+
+  // total messages
+  const totalMessage = async () => {
+    try {
+
+      const res = await axios.get(
+        "http://localhost:9000/total/contact"
+      );
+
+      setMessage(res.data.meassage);
+
+    } catch (error) {
+      console.log("Message API Error", error);
+    }
+  };
+
+  console.log(message)
+
+  // total admins
+  const totalAdmins = async () => {
+    try {
+
+      const res = await axios.get(
+        "http://localhost:9000/total/admins"
+      );
+
+      setAdmins(res.data.adminsTotal);
+
+    } catch (error) {
+      console.log("Admins API Error", error);
+    }
+  };
+
+  useEffect(() => {
+    handleData();
+    totalAdmins();
+    totalArticle();
+    totalMessage();
+  }, []);
+
+  // stats array
   const stats = [
     {
       title: "Total Articles",
-      value: 120,
+      value: article,
       icon: <FileText size={28} />,
       color: "bg-blue-500",
     },
- 
+
     {
       title: "Messages",
-      value: 48,
+      value: message,
       icon: <MessageSquare size={28} />,
       color: "bg-purple-500",
     },
+
     {
       title: "Admins",
-      value: 3,
+      value: admins,
       icon: <Users size={28} />,
       color: "bg-orange-500",
     },
   ];
 
-  const recentArticles = [
-    {
-      id: 1,
-      title: "The Future of AI in Education",
-      image:
-        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
-      views: 1200,
-      date: "May 24, 2026",
-    },
-    {
-      id: 2,
-      title: "Technology and Modern Business",
-      image:
-        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-      views: 950,
-      date: "May 22, 2026",
-    },
-    {
-      id: 3,
-      title: "How Developers Build Fast Websites",
-      image:
-        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
-      date: "May 20, 2026",
-    },
-  ];
-
   return (
-       <div className="flex ">
-    <Dashboard />
-    <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Dashboard Report
-        </h1>
+    <div className="flex">
 
-        <p className="text-gray-500 mt-2">
-          Welcome to JournalHub Admin Dashboard
-        </p>
-      </div>
+      <Dashboard />
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {stats.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between hover:shadow-lg transition"
-          >
-            <div>
-              <p className="text-gray-500 text-sm">
-                {item.title}
-              </p>
+      <div className="p-6 bg-gray-100 min-h-screen w-full">
 
-              <h2 className="text-3xl font-bold mt-2">
-                {item.value}
-              </h2>
-            </div>
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Dashboard Report
+          </h1>
 
-            <div
-              className={`${item.color} text-white p-4 rounded-xl`}
-            >
-              {item.icon}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Articles Report */}
-      <div className="mt-10">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">
-            Articles Report
-          </h2>
-
-        {/* <Link to='/admin/article'> <button className="bg-blue-600 text-black px-5 py-2 rounded-xl hover:bg-blue-700 transition">
-            View All
-          </button>
-          </Link>  */}
+          <p className="text-gray-500 mt-2">
+            Welcome to JournalHub Admin Dashboard
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {recentArticles.map((article) => (
+        {/* Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          {stats.map((item, index) => (
             <div
-              key={article.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition"
+              key={index}
+              className="bg-white rounded-2xl shadow-sm p-5 flex items-center justify-between hover:shadow-lg transition"
             >
-              {/* Image */}
-              <img
-                src={article.image}
-                alt={article.title}
-                className="w-full h-52 object-cover"
-              />
+              <div>
+                <p className="text-gray-500 text-sm">
+                  {item.title}
+                </p>
 
-              {/* Content */}
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-gray-800 line-clamp-2">
-                  {article.title}
-                </h3>
+                <h2 className="text-3xl font-bold mt-2">
+                  {item.value}
+                </h2>
+              </div>
 
-                <div className="flex items-center justify-between mt-5 text-sm text-gray-500">
-                  <span>{article.date}</span>
-                </div>
-
-                {/* <div className="flex items-center justify-between pt-3">
-
-               
-
-                <button className="bg-green-100 text-green-600 p-2 rounded-xl hover:scale-105 transition">
-                  <Pencil size={18} />
-                </button>
-
-                <button className="bg-red-100 text-red-600 p-2 rounded-xl hover:scale-105 transition">
-                  <Trash2 size={18} />
-                </button>
-
-              </div> */}
-               
+              <div
+                className={`${item.color} text-white p-4 rounded-xl`}
+              >
+                {item.icon}
               </div>
             </div>
           ))}
         </div>
+
+        {/* Latest Articles */}
+        <div className="mt-10">
+
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Latest Articles
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            {latest.map((article, id) => (
+              <div
+                key={id}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition"
+              >
+
+                {/* Image */}
+                <img
+                  src={`http://localhost:9000/allimage/${article.image}`}
+                  alt=""
+                  className="w-full h-52 object-cover"
+                />
+
+                {/* Content */}
+                <div className="p-5">
+
+                  <h3 className="text-xl font-semibold text-gray-800 line-clamp-2">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-gray-500 text-sm mt-3 line-clamp-3">
+                    {article.description}
+                  </p>
+
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </div>
+
       </div>
-    </div>
     </div>
   );
 };
