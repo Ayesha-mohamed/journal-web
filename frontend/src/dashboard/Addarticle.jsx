@@ -180,7 +180,7 @@ function AddArticle() {
       const formData = new FormData();
 
       formData.append("title", form.title);
-      formData.append(" type", form.type);
+      formData.append("type", form.type);
       formData.append("description", form.description);
       formData.append("status", form.status);
       formData.append("image", form.image);
