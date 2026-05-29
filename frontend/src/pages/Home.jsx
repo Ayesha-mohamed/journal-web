@@ -33,7 +33,7 @@ function Home() {
     
 
       {/* Hero Section */}
-      <section className="px-8 md:px-20 py-16 text-white bg-[url('https://i.pinimg.com/1200x/35/d6/89/35d6894b50e38ea69d6cac0d36efc7d0.jpg')] w-full bg-cover bg-center h-[550px]">
+      <section  className="px-8 md:px-20 py-16 text-white bg-[url('https://i.pinimg.com/1200x/35/d6/89/35d6894b50e38ea69d6cac0d36efc7d0.jpg')] w-full bg-cover bg-center h-[550px]">
         <div className="max-w-3xl">
           <h1 className="text-5xl font-bold leading-tight mb-6">
             Discover Amazing Stories & Research Articles
@@ -44,20 +44,7 @@ function Home() {
             from writers around the world.
           </p>
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-2xl p-2 flex items-center max-w-xl shadow-lg">
-            <Search className="text-gray-500 ml-3" size={22} />
-
-            <input
-              type="text"
-              placeholder="Search articles..."
-              className="w-full px-4 py-3 outline-none text-gray-700 rounded-2xl"
-            />
-
-            <button className="bg-slate-700 hover:bg-slate-800 transition text-white px-6 py-3 rounded-xl">
-              Search
-            </button>
-          </div>
+         
         </div>
       </section>
 
