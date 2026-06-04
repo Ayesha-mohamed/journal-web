@@ -19,6 +19,9 @@ function Contact() {
         message: message
       }).then(()=>{
         alert("sends message")
+        setName("")
+        setEmail("")
+        setMessage("")
       })
       
     } catch (error) {

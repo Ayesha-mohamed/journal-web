@@ -1,28 +1,69 @@
 import { Mail, User, Trash2 } from "lucide-react";
 import Dashboard from "./Dashbord";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const messages = [
-  {
-    id: 1,
-    name: "Ahmed Ali",
-    email: "ahmed@gmail.com",
-    message: "Hello, I like your website. Can you help me with a project?",
-  },
-  {
-    id: 2,
-    name: "Amina Hassan",
-    email: "amina@gmail.com",
-    message: "I want to collaborate with you on a blog project.",
-  },
-  {
-    id: 3,
-    name: "John Doe",
-    email: "john@gmail.com",
-    message: "Great work! Keep it up 👍",
-  },
-];
+// const messages = [
+//   {
+//     id: 1,
+//     name: "Ahmed Ali",
+//     email: "ahmed@gmail.com",
+//     message: "Hello, I like your website. Can you help me with a project?",
+//   },
+//   {
+//     id: 2,
+//     name: "Amina Hassan",
+//     email: "amina@gmail.com",
+//     message: "I want to collaborate with you on a blog project.",
+//   },
+//   {
+//     id: 3,
+//     name: "John Doe",
+//     email: "john@gmail.com",
+//     message: "Great work! Keep it up 👍",
+//   },
+// ];
 
 function Messages() {
+
+  const [messages, setMessages] = useState([]);
+
+
+  useEffect(() => {
+  getMessages();
+}, []);
+
+const getMessages = async () => {
+  try {
+    const res = await axios.get(
+      "http://localhost:9000/read/contact"
+    );
+
+    setMessages(res.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const deleteMessage = async (id) => {
+  try {
+    await axios.delete(
+      `http://localhost:9000/delete/message/${id}`
+    );
+
+    setMessages(
+      messages.filter((msg) => msg._id !== id)
+    );
+
+    alert("Message deleted successfully");
+  } catch (error) {
+    console.log(error);
+    alert("Failed to delete message");
+  }
+};
+
+
   return (
     <div className="flex ">
     <Dashboard />
@@ -75,9 +116,16 @@ function Messages() {
 
             {/* actions */}
             <div className="flex justify-end mt-4">
-              <button className="bg-red-100 text-red-600 p-2 rounded-xl hover:scale-105 transition">
+              {/* <button className="bg-red-100 text-red-600 p-2 rounded-xl hover:scale-105 transition">
                 <Trash2 size={18} />
-              </button>
+              </button> */}
+
+              <button
+  onClick={() => deleteMessage(msg._id)}
+  className="bg-red-100 text-red-600 p-2 rounded-xl hover:scale-105 transition"
+>
+  <Trash2 size={18} />
+</button>
             </div>
 
           </div>

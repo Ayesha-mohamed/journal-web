@@ -13,6 +13,7 @@ import AdminRegister from "./dashboard/Register"
 import AddArticle from "./dashboard/Addarticle"
 import Report from "./dashboard/report"
 import UpdateArticle from "./dashboard/updateArticle"
+import Protect from "./pages/protected-routes"
 
 
 function App() {
@@ -28,12 +29,53 @@ function App() {
   {/* <Route path="/dashboard" element={<Dashboard />} /> */}
   <Route path="/readmore/:id" element={<Readmore />} />
   <Route path="/admin/login" element={<AdminLogin />} />
-  <Route path="/admin/article" element={<Adminarticle />} />
-  <Route path="/admin/messages" element={<Messages />} />
-  <Route path="/admin/register" element={<AdminRegister />} />
-  <Route path="/add/article" element={<AddArticle />} />
-  <Route path="/admin/dashboard" element={<Report />} />
-  <Route path="/update/article/:id" element={<UpdateArticle />} />
+
+  <Route 
+  path="/admin/article" 
+  element={
+    <Protect>
+  <Adminarticle />
+    </Protect>   
+
+} 
+  />
+
+  <Route
+   path="/admin/messages" 
+   element={
+    <Protect>
+   <Messages />
+    </Protect>
+   
+   } />
+
+  <Route path="/admin/register" 
+  element={
+    <Protect>
+  <AdminRegister />
+    </Protect>
+  } />
+  <Route path="/add/article" 
+  element={
+  <Protect>
+    <AddArticle />
+  </Protect>
+
+  } />
+  <Route path="/admin/dashboard" 
+  element={
+    <Protect>
+      <Report />
+    </Protect>
+
+  } />
+  <Route path="/update/article/:id" 
+  element={
+    <Protect>
+      <UpdateArticle />
+    </Protect>
+
+  } />
   
 
 

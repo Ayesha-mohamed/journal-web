@@ -1,34 +1,64 @@
 import { useState } from "react";
 import { UserPlus, Mail, Lock } from "lucide-react";
 import Dashboard from "./Dashbord";
+import axios from "axios";
 
 function AdminRegister() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
 
-    console.log("Register Admin:", form);
-  };
 
+  //   console.log("Register Admin:", form);
+  // };
+
+  // const [name, setName] = useState("n")
+  // const [email, setEmail] = useState("emal")
+  // const [password, setPassword] = useState("pass")
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(
+      "http://localhost:9000/create/admin",
+      {
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      }
+    );
+
+    alert("Admin successfully created");
+    console.log(res.data);
+
+    setForm({
+      name: "",
+      email: "",
+      password: "",
+    });
+  } catch (error) {
+    console.error(error);
+    alert(
+      error.response?.data?.message ||
+      "Failed to create admin"
+    );
+  }
+};
   return (
        <div className="flex ">
     <Dashboard />
-    <div className="min-h-screen w-1/2 flex items-center justify-center bg-[#f5f7fb] p-4">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#f5f7fb] p-4">
 
       <div className="bg-white w-full max-w-md rounded-3xl shadow-lg p-8">
 
